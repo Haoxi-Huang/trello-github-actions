@@ -67,8 +67,8 @@ function createCardWhenIssueOpen(apiKey, apiToken, boardId) {
 }
 
 function moveCardWhenPullRequestOpen(apiKey, apiToken, boardId) {
-  const departureListId = process.env['TRELLO_DEPARTURE_LIST_ID'];
-  const destinationListId = process.env['TRELLO_DESTINATION_LIST_ID'];
+  const departureListId = process.env['TRELLO_DEPARTURE_PR_OPEN_LIST_ID'];
+  const destinationListId = process.env['TRELLO_DESTINATION_PR_OPEN_LIST_ID'];
   const pullRequest = github.context.payload.pull_request
   const issue_number = pullRequest.body.match(/#[0-9]+/)[0].slice(1);
   const url = pullRequest.html_url;
@@ -113,8 +113,8 @@ function moveCardWhenPullRequestOpen(apiKey, apiToken, boardId) {
 }
 
 function moveCardWhenPullRequestClose(apiKey, apiToken, boardId) {
-  const departureListId = process.env['TRELLO_DEPARTURE_LIST_ID'];
-  const destinationListId = process.env['TRELLO_DESTINATION_LIST_ID'];
+  const departureListId = process.env['TRELLO_DEPARTURE_PR_CLOSE_LIST_ID'];
+  const destinationListId = process.env['TRELLO_DESTINATION_PR_CLOSE_LIST_ID'];
   const pullRequest = github.context.payload.pull_request
   const issue_number = pullRequest.body.match(/#[0-9]+/)[0].slice(1);
   const url = pullRequest.html_url;
