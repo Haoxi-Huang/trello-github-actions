@@ -70,7 +70,7 @@ function moveCardWhenPullRequestOpen(apiKey, apiToken, boardId) {
   const departureListId = process.env['TRELLO_DEPARTURE_PR_OPEN_LIST_ID'];
   const destinationListId = process.env['TRELLO_DESTINATION_PR_OPEN_LIST_ID'];
   const pullRequest = github.context.payload.pull_request
-  const trello_url = pullRequest.body.match(/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/)[0];
+  const trello_url = pullRequest.body.match(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/)[0];
   const url = pullRequest.html_url;
   const reviewers = pullRequest.requested_reviewers.map(reviewer => reviewer.login);
 
@@ -115,7 +115,7 @@ function moveCardWhenPullRequestClose(apiKey, apiToken, boardId) {
   const departureListId = process.env['TRELLO_DEPARTURE_PR_CLOSE_LIST_ID'];
   const destinationListId = process.env['TRELLO_DESTINATION_PR_CLOSE_LIST_ID'];
   const pullRequest = github.context.payload.pull_request
-  const trello_url = pullRequest.body.match(/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/)[0];
+  const trello_url = pullRequest.body.match(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/)[0];
   const url = pullRequest.html_url;
   const reviewers = pullRequest.requested_reviewers.map(reviewer => reviewer.login);
 
