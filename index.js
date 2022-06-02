@@ -70,7 +70,7 @@ function moveCardWhenPullRequestOpen(apiKey, apiToken, boardId) {
   const departureListId = process.env['TRELLO_DEPARTURE_PR_OPEN_LIST_ID'];
   const destinationListId = process.env['TRELLO_DESTINATION_PR_OPEN_LIST_ID'];
   const pullRequest = github.context.payload.pull_request
-  const issue_number = pullRequest.body.match(/^[0-9a-fA-F]{24}/)[0].slice(1);
+  const trello_url = pullRequest.body.match(/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/)[0];
   const url = pullRequest.html_url;
   const reviewers = pullRequest.requested_reviewers.map(reviewer => reviewer.login);
 
@@ -90,8 +90,7 @@ function moveCardWhenPullRequestOpen(apiKey, apiToken, boardId) {
       let cardId;
       let existingMemberIds = [];
       cards.some(function(card) {
-        const card_issue_number = card.name.match(/^[0-9a-fA-F]{24}/)[0].slice(1);
-        if (card_issue_number == issue_number) {
+        if (card.url == trello_url) {
           cardId = card.id;
           existingMemberIds = card.idMembers;
           return true;
@@ -116,7 +115,7 @@ function moveCardWhenPullRequestClose(apiKey, apiToken, boardId) {
   const departureListId = process.env['TRELLO_DEPARTURE_PR_CLOSE_LIST_ID'];
   const destinationListId = process.env['TRELLO_DESTINATION_PR_CLOSE_LIST_ID'];
   const pullRequest = github.context.payload.pull_request
-  const issue_number = pullRequest.body.match(/^[0-9a-fA-F]{24}/)[0].slice(1);
+  const trello_url = pullRequest.body.match(/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/)[0];
   const url = pullRequest.html_url;
   const reviewers = pullRequest.requested_reviewers.map(reviewer => reviewer.login);
 
@@ -136,8 +135,7 @@ function moveCardWhenPullRequestClose(apiKey, apiToken, boardId) {
       let cardId;
       let existingMemberIds = [];
       cards.some(function(card) {
-        const card_issue_number = card.name.match(/^[0-9a-fA-F]{24}/)[0].slice(1);
-        if (card_issue_number == issue_number) {
+        if (card.url == trello_url) {
           cardId = card.id;
           existingMemberIds = card.idMembers;
           return true;
